@@ -6,5 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="br.com.alura.screenmatch"/>
+	<classpathentry kind="lib" path="C:/Users/adria/Documents/desenvolvedor/eclipse-workspace/screenmacth1/external-jars/gson-2.10.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
