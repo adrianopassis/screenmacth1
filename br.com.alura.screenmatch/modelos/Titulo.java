@@ -1,12 +1,11 @@
 package modelos;
 
-import com.google.gson.annotations.SerializedName;
-
+import excecao.ErroDeConversaoDeAnoException;
 import principal.TituloOmdb;
 
 public class Titulo implements Comparable<Titulo> {
-	@SerializedName("Title")private String nome;//Quando for serializar 
-	@SerializedName("year")private int anoDeLancamento;
+	private String nome;//Quando for serializar 
+	private int anoDeLancamento;
 	private boolean incluidoNoPlano;
 	private double somaDasAvaliacao;
 	private int totalDeVendas;
@@ -18,11 +17,16 @@ public class Titulo implements Comparable<Titulo> {
 		this.anoDeLancamento = anoDeLancamento;
 	}
 	
-	public Titulo(TituloOmdb meuTituloOmdb) {
-		this.nome = meuTituloOmdb.title();
-		this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
-		this.duracaoEmMinutos = Integer.valueOf((String) meuTituloOmdb.runtime().subSequence(0, 2));
-	}
+	 public Titulo(TituloOmdb meuTituloOmdb) {
+		    this.nome = meuTituloOmdb.title();
+
+		    if(meuTituloOmdb.year().length() > 4) {
+		        throw new ErroDeConversaoDeAnoException("Não consegui converter o ano "
+		        		+ "porque tem mais de 04 caracteres.");
+		    }
+		    this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
+		    this.duracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().substring(0, 2));
+		}
 
 	public void exibeFichaTecnica() {
 		System.out.println("--------------------------------------");
@@ -104,10 +108,9 @@ public class Titulo implements Comparable<Titulo> {
 
 	@Override
 	public String toString() {
-		return "Nome = " + nome + ", Ano de Lancamento = " + anoDeLancamento + ", " 
-	+ " Duração: " + duracaoEmMinutos;
-	}
-	
+		return "Titulo [Nome = " + nome + ", Ano de lancamento = " + anoDeLancamento + ", Duracao em minutos = "
+				+ duracaoEmMinutos + "]";
+	}	
 	
 	
 	
